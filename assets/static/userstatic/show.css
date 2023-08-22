@@ -1,0 +1,46 @@
+
+
+.container {
+    box-shadow: #ff4d26;
+}
+
+.reviews {
+    padding: 1px;
+    background-color: #fff;
+    display: flex;
+    border: #0d0d0c;
+    border: 3px solid#ff4d26;
+}
+.reviews h3{
+    color: #0d0d0c;
+}
+.reviews img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover; /* Helps maintain aspect ratio */
+}
+
+.reviews.rating {
+    color:  #0d0d0c;
+}
+.reviews.category{
+    color:  #0d0d0c;
+    
+}
+
+.reviews .Review{
+   color:  #0d0d0c;
+}
+.reviews .checked {
+    color: orange;
+  }
+#reviewSection {
+    display: none;
+}
+
+
+
+
+
+

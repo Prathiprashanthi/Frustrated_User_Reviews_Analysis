@@ -1,0 +1,151 @@
+
+    .feed
+    {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+    background-color: blanchedalmond;
+    }
+
+    .submit{
+
+    color: blueviolet;
+    }
+    *{
+    margin: 0;
+    padding: 0;
+    }
+    .rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+    }
+    .rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    }
+    .rate:not(:checked) > label {
+    float:left;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+    }
+    .rate:not(:checked) > label:before {
+    content: '★ ';
+    }
+    .rate > input:checked ~ label {
+    color: #ffc700;    
+    }
+    .rate:not(:checked) > label:hover,
+    .rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+    }
+    .rate > input:checked + label:hover,
+    .rate > input:checked + label:hover ~ label,
+    .rate > input:checked ~ label:hover,
+    .rate > input:checked ~ label:hover ~ label,
+    .rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+    }
+
+    /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+
+
+
+
+                                   
+    .rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: left;
+                    }
+
+    .rating input {
+    display: none;
+    }
+
+    .rating label {
+    color: #bbb;
+    font-size: 24px;
+    cursor: pointer;
+    }
+
+    .rating label:before {
+    content: "★";
+    }
+
+    .rating input:checked ~ label {
+    color: #ffc700;
+    }
+
+    .rating label:hover,
+    .rating label:hover ~ label {
+    color: #ffc700;
+    }
+    .review-container {
+        width: 100px;
+        padding: 5px;
+        border: 1px solid #ccc;
+      }
+      
+      h2 {
+        margin-top: 0;
+        text-align: center;
+        color:#ff4d26;
+      }
+      
+      form {
+        display: flex;
+        flex-direction: column;
+      }
+      
+      label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color:black;
+      }
+      input,
+      select,
+      textarea {
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+      
+      input[type="submit"] {
+        background-color: #ff4d26;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      
+      input[type="submit"]:hover {
+        background-color: #ff4d26;
+      }
+      .orange-btn {
+        background-color: #ff4d26;
+        text-align: center;
+        border:none;
+      }
+      a {
+        text-decoration: none;
+      }
+      .no-underline {
+        text-decoration: none;
+      }
+      .navbar h1 {
+        flex: 1;
+      }
+    
+      .navbar h1 {
+        color: #ff4d26;
+        text-decoration: none;
+        font-size: 24px;
+        font-weight: bold;
+      }

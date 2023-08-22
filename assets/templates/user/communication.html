@@ -1,0 +1,170 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link  href="{% static 'userstatic/bootstrap.min.css' %}" rel="stylesheet">
+    <link  href="{% static 'userstatic/owl.carousel.min.css' %}" rel="stylesheet">
+    <link  href="{% static 'userstatic/owl.theme.default.min.css' %}" rel="stylesheet">
+    <link  href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link  href="{% static 'userstatic/style.css' %}" rel="stylesheet">
+    <link  href="{% static 'userstatic/writing.css' %}"  rel="stylesheet">
+
+
+    <title>Reviews Template</title>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+    <!-- TOP NAV -->
+    <div class="top-nav" id="home">
+      <div class="container">
+          <div class="row justify-content-between">
+              <div class="col-auto">
+                  <p> <i class='bx bxs-envelope'></i>info@codebook.in</p>
+                  <p> <i class='bx bxs-phone-call'></i>8555887986</p>
+              </div>
+              <div class="col-auto social-icons">
+                  <a href="#"><i class='bx bxl-facebook'></i></a>
+                  <a href="#"><i class='bx bxl-twitter'></i></a>
+                  <a href="#"><i class='bx bxl-instagram'></i></a>
+                  <a href="#"><i class='bx bxl-pinterest'></i></a>
+              </div>
+          </div>
+      </div>
+  </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top dashboard-navbar">
+        <div class="container">
+          <a class="navbar-brand" href="#">Reviews Analyzer<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_reviews' %}">My Reviews</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'user_myprofile' %}">My Profile</a>
+                </li>
+            </ul>
+                <a href="{% url 'user_login' %}" class="btn btn-brand">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <body>
+        <div class="container">
+            <h2>Opinions List</h2><a href="{% url 'user_dashboard' %}" class="btn btn-brand" style="margin-left: 1200px;">Back</a>
+            <div class="table-responsive">      
+              <table class="table table-bordered">
+                <thead class="bg-orange">
+                  <tr>
+                    <th>#</th>
+                    <th>User Name</th>
+                    <th>Reviews</th>
+                    <th>Category</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Expression</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for i in reviews %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{i.Username}}</td>
+                      <td>{{i.Userreview}}</td>
+                      <td>{{i.catgory}}</td>
+                      <td>{{i.Rating}}</td>
+                      <td>{{i.Date}}</td>
+                      <td>{% if i.Sentiment == 'positive' %}
+                        <p style="font-size:20px">positive</p>
+                      {% elif i.Sentiment == 'very positive' %}
+                        <p style="font-size:20px">very positive</p>
+                      {% elif i.Sentiment == 'negative' %}
+                        <p style="font-size:20px">negative</p>
+                      {% elif i.Sentiment == 'very negative' %}
+                        <p style="font-size:20px">very negative</p>
+                      {% else %}
+                        <p style="font-size:20px">neutral</p>
+                      {% endif %}
+                      </td>
+                      <td>
+                        {% if i.Sentiment == 'positive' %}
+                          <p style="font-size:30px">&#128512;</p>
+                        {% elif i.Sentiment == 'very positive' %}
+                          <p style="font-size:30px">&#128513;</p>
+                        {% elif i.Sentiment == 'negative' %}
+                          <p style="font-size:30px">&#128544;</p>
+                        {% elif i.Sentiment == 'very negative' %}
+                          <p style="font-size:30px">&#128545;</p>
+                          {% else %}
+                          <p style="font-size:30px">&#128528;</p>
+                        {% endif %}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  <!-- Repeat the <tr> and <td> for the remaining rows and columns -->
+                </tbody>
+              </table>
+            </div>
+        </div>
+    {% comment %} Pagination start {% endcomment %}
+    <nav aria-label="Page navigation example" style ="text-align:center;">
+      <ul class="pagination ml-2 ">
+          {% if reviews.has_previous %}
+              {% comment %} <li class="page-item"><a class="page-link" href="?page=1">&laquo; First</a></li> {% endcomment %}
+              <li class="page-item"><a class="page-link  text-white " style="background-color: #ff4d26;" href="?page={{ reviews.previous_page_number }}">Previous</a></li>
+          {% endif %}
+          {% if reviews.has_next %}
+          <li class="page-item"><a class="page-link  text-white " style="background-color: #ff4d26;" href="?page={{ reviews.next_page_number }}">Next</a></li>
+          <!-- <li class="page-item"><a class="page-link" href="?page={{ r.paginator.num_pages }}">Last &raquo;</a></li> -->
+          {% endif %}
+      </ul>
+      Page {{ reviews.number }} of {{ reviews.paginator.num_pages }}.
+    </nav>
+  {% comment %} Pagination End {% endcomment %} 
+    <footer>
+        <div class="footer-top text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 text-center">
+                        <h4 class="navbar-brand">Reviews<span class="dot">.</span></h4>
+                        <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                            classical Latin literature from</p>
+                        <div class="col-auto social-icons">
+                            <a href="#"><i class='bx bxl-facebook'></i></a>
+                            <a href="#"><i class='bx bxl-twitter'></i></a>
+                            <a href="#"><i class='bx bxl-instagram'></i></a>
+                            <a href="#"><i class='bx bxl-pinterest'></i></a>
+                        </div>
+                        <div class="col-auto conditions-section">
+                            <a href="#">privacy</a>
+                            <a href="#">terms</a>
+                            <a href="#">disclaimer</i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">
+            <p class="mb-0">Copyright codebook.in 2023. All rights Reserved</p> Distributed By Codebook
+        </div>
+    </footer>
+    </section>
+    <script src="{% static 'userstatic/jquery.min.js' %}"></script>
+    <script src="{% static 'userstatic/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'userstatic/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'userstatic/app.js' %}"></script>
+</body>
+</html>

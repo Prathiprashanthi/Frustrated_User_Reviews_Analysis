@@ -1,0 +1,152 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link  href="{% static 'userstatic/bootstrap.min.css' %}" rel="stylesheet">
+    <link  href="{% static 'userstatic/owl.carousel.min.css' %}" rel="stylesheet">
+    <link  href="{% static 'userstatic/owl.theme.default.min.css' %}" rel="stylesheet">
+    <link  href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link  href="{% static 'userstatic/style.css' %}" rel="stylesheet">
+
+    <title>Reviews Template</title>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+    <div class="top-nav" id="home">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <p> <i class='bx bxs-envelope'></i>info@codebook.in</p>
+                    <p> <i class='bx bxs-phone-call'></i>8555887986</p>
+                </div>
+                <div class="col-auto social-icons">
+                    <a href="#"><i class='bx bxl-facebook'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                    <a href="#"><i class='bx bxl-pinterest'></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Reviews Analyzer<span class="dot">.</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_about' %}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_portfolio' %}">Portfolio</a>
+                    </li>
+                </ul>
+                <a href="{% url 'user_login'%}" class="btn btn-brand">Login</a>
+            </div>
+        </div>
+    </nav>
+<section class="bg-light" id="portfolio">
+    <form method='POST' enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="intro">
+                    <h6>Work</h6>
+                    <h1>Successful projects</h1>
+                    <p class="mx-auto">Contrary to popular belief, Lorem Ipsum is not simply random text. It has
+                        roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="projects-slider" class="owl-theme owl-carousel">
+        <div class="project">
+            <div class="overlay"></div>
+            <img src="{% static 'userstatic/project1.jpg' %}" alt="">
+            <div class="content">
+                <h2>Consulting Marketing</h2>
+                <h6>Website Design</h6>
+            </div>
+        </div>
+        <div class="project">
+            <div class="overlay"></div>
+            <img src="{% static 'userstatic/project2.jpg' %}" alt="">
+            <div class="content">
+                <h2>Consulting Marketing</h2>
+                <h6>Website Design</h6>
+            </div>
+        </div>
+        <div class="project">
+            <div class="overlay"></div>
+            <img src="{% static 'userstatic/project3.jpg' %}" alt="">
+            <div class="content">
+                <h2>Consulting Marketing</h2>
+                <h6>Website Design</h6>
+            </div>
+        </div>
+        <div class="project">
+            <div class="overlay"></div>
+            <img src="{% static 'userstatic/project4.jpg' %}" alt="">
+            <div class="content">
+                <h2>Consulting Marketing</h2>
+                <h6>Website Design</h6>
+            </div>
+        </div>
+        <div class="project">
+            <div class="overlay"></div>
+            <img src="{% static 'userstatic/project5.jpg' %}" alt="">
+            <div class="content">
+                <h2>Consulting Marketing</h2>
+                <h6>Website Design</h6>
+            </div>
+        </div>
+    </div>
+</form>
+</section>
+<footer>
+    <div class="footer-top text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <h4 class="navbar-brand">Reviews<span class="dot">.</span></h4>
+                    <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of
+                        classical Latin literature from</p>
+                    <div class="col-auto social-icons">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-twitter'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                        <a href="#"><i class='bx bxl-pinterest'></i></a>
+                    </div>
+                    <div class="col-auto conditions-section">
+                        <a href="#">privacy</a>
+                        <a href="#">terms</a>
+                        <a href="#">disclaimer</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom text-center">
+        <p class="mb-0">Copyright Codebook.in 2023. All rights Reserved</p> Distributed By Codebook
+    </div>
+</footer>
+    <script src="{% static 'userstatic/jquery.min.js' %}"></script>
+    <script src="{% static 'userstatic/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'userstatic/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'userstatic/app.js' %}"></script>
+</body>
+</html>

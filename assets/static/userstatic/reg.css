@@ -1,0 +1,40 @@
+div h2{
+ color:#ff4d26;
+}
+.orange-btn {
+  background-color: #ff4d26;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.custom-file-input {
+  cursor: pointer;
+}
+
+.custom-file-input[aria-invalid="true"]::before {
+  background: #dc3545;
+}
+
+/* Styles for the profile picture display (optional) */
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #007bff;
+}
+.gradient-custom-3 {
+
+  background: #e4ede8;
+  background: -webkit-linear-gradient(to right, rgb(233, 236, 234), rgb(233, 236, 234));
+  background: linear-gradient(to right, rgb(233, 236, 234), rgb(233, 236, 234))
+}
+.gradient-custom-4 {
+  background: #e1ebe5;
+  background: -webkit-linear-gradient(to right, rgb(233, 236, 234), rgb(241, 244, 245));
+  background: linear-gradient(to right, rgb(237, 241, 239), rgb(245, 247, 248))
+}
+    
