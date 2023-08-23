@@ -13,6 +13,7 @@ class User(models.Model):
     Review_Catgeory = models.TextField(max_length=50, null=True)
     Reviews=models.TextField(max_length=200,null=True)
     Ratings=models.TextField(max_length=100,null=True)
+    count = models.IntegerField(null=True, default=0)
     class Meta:
         db_table="user"
     

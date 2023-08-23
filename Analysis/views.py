@@ -5,11 +5,31 @@ import string
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from django.contrib import messages
 from django.core.paginator import Paginator
-
-
+from django.core.mail import send_mail
+from django.conf import settings
+import urllib.request
+import urllib.parse
+import ssl
 # Create your views here.
 def user_index(request):
     return render(request, 'user/index.html')
+
+
+
+def sendSMS(user, otp, mobile):
+    data = urllib.parse.urlencode({
+        'username': 'Codebook',
+        'apikey': '56dbbdc9cea86b276f6c',
+        'mobile': mobile,
+        'message': f'Hello {user}, your OTP for account activation is {otp}. This message is generated from https://www.codebook.in server. Thank you',
+        'senderid': 'CODEBK'
+    })
+    data = data.encode('utf-8')
+    # Disable SSL certificate verification
+    context = ssl._create_unverified_context()
+    request = urllib.request.Request("https://smslogin.co/v3/api.php?")
+    f = urllib.request.urlopen(request, data,context=context)
+    return f.read()
 
 
 def user_register(request):
@@ -22,17 +42,26 @@ def user_register(request):
         print(user_fullname,user_email,user_password,user_contact,user_image,'data')
         user_otp = str(random.randint(1000, 9999)) 
         print(user_otp)
+        c = 0
         try:
             User.objects.get(UserEmail= user_email)
             messages.warning(request, 'mail already exists')
             return redirect("user_register")
         except:
-            User.objects.create(User_Otp=user_otp,UserFullname=user_fullname,UserEmail= user_email,UserPassword=user_password,UserContact=user_contact,UserImage=user_image)        
+            response = sendSMS(user_fullname, user_otp, user_contact)
+            User.objects.create(User_Otp=user_otp,UserFullname=user_fullname,UserEmail= user_email,UserPassword=user_password,UserContact=user_contact,UserImage=user_image, count=c)        
             request.session['UserEmail'] = user_email
+            mail_message = f'Registration Successfully\n Your 4 digit Pin is below\n {user_otp}'
+            print(mail_message)
+            send_mail("Student Password", mail_message , settings.EMAIL_HOST_USER, [user_email])
+            
             messages.success(request, 'Register SUccessfull...!')
             return redirect('user_otp')
             
     return render(request,'user/register.html')
+
+
+
 
 def user_login(request):
     if request.method =='POST':
@@ -217,11 +246,19 @@ def user_reviews(request):
         user.Review_Catgeory=catgory
         user.Reviews=userreview
         user.Ratings= rating
+        c = user.count
+        c = int(c)
+        c+=1
+        user.count = c
+        # user.save()
         user.save()
         Reviews.objects.create(User_Foreign=user, Username=user.UserFullname,Userreview=userreview,Rating=rating,catgory=catgory, Sentiment = sentiment)
+        messages.success(request, 'Reviews Submited...!')
     Rev =Reviews.objects.filter(Username=user.UserFullname)
-    code=Rev.last()
+    
+    code=Rev
     # print(code.Rating)
+    
     context={'u':code, 'user':user}
         # return redirect('user_reviews', review_id=code.ReviewId)
     return render(request,'user/reviwes.html', context)

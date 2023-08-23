@@ -59,6 +59,7 @@
             </div>
         </div>
     </nav>
+
     <form method="post"  enctype="multipart/form-data">
         {% csrf_token %}
     <div class="container rounded bg-white mt-5" style="max-height: 400px;">
@@ -67,7 +68,8 @@
                 <div class="col-md-6">
                     <div class="col-md-6 border-right">
                         <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-3"><img class="rounded-circle mt-5" src="/media/{{user_details.UserImage}}" height="300px"><br>
-                        <input type='file' id="fileInput" class="custom-file-input" name="image"/>
+                        <label for="fileInput" class="form-label"name="image">Choose File</label>
+                        <input type="file" class="form-control shadow"name="image" id="fileInput">
                         </div>
                     </div>
                 </div>
@@ -95,6 +97,7 @@
         </div>
     </div>
     </form>
+
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <footer>
         <div class="footer-top text-center">

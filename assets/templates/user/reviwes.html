@@ -20,7 +20,11 @@
     <title>Prixima BS5 Template</title>
  
 </head>
-
+<style>
+    .checked{
+        color:red;
+    }
+</style>
 <body>
     <div class="top-nav" id="home">
         <div class="container">
@@ -99,56 +103,71 @@
                         <textarea id="review" name="review" rows="2" required></textarea>
                         <input id="submitButton" type="submit">
                     </form>
+                </div>
             </div>
-        </div>
-    <section id="hiddenSection" class="d-none">
-        <div class="container" >
-        <div class="reviews" >
-            <div class="col-md-2">
-                <img src="/media/{{u.User_Foreign.UserImage}}" alt="User 1">
+        {% if user.count == 0 %}
+            <h1 class="text-warning text-center mt-3"></h1>
+        {% else %}
+            <div class="container">
+                <div class="table-responsive">      
+                <table class="table table-bordered">
+                    <thead class="bg-orange">
+                    <tr>
+                        <th>#</th>
+                        <th>Category</th>
+                        <th>Reviews</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                            {% for user in u %}
+                                <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{user.catgory}}</td>
+                                <td>{{user.Userreview}}</td>
+                                <td><p class="Ratings" style="text-align: left;">
+                                    {% if user.Rating == 0 %}
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    <span class="fa fa-star "></span>
+                                    {% elif user.Rating == 1 %}
+                                    <span class="fa fa-star checked"></span>
+                                    {% elif user.Rating == 2 %}
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    {% elif user.Rating == 3 %}
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    {% elif user.Rating == 4 %}
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    {% else %}
+                                    <span class="fa fa-star checked " ></span>
+                                    <span class="fa fa-star checked " ></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    {% endif %}
+                                    </p>
+                                </td>
+                                </tr>
+                            {% endfor %}
+                            <!-- Repeat the <tr> and <td> for the remaining rows and columns -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="review-content col-md-2">
-                <h3 style="text-align: left;">{{u.Username}}</h3>
-                <p class="Ratings" style="text-align: left;">Star Rating:
-                {% if user.Ratings == '0' %}
-                <span class="fa fa-star "></span>
-                <span class="fa fa-star "></span>
-                <span class="fa fa-star "></span>
-                <span class="fa fa-star "></span>
-                <span class="fa fa-star "></span>
-                {% elif user.Ratings == '1' %}
-                <span class="fa fa-star checked"></span>
-                {% elif user.Ratings == '2' %}
-                <span class="fa fa-star checked "></span>
-                <span class="fa fa-star checked "></span>
-                {% elif user.Ratings == '3' %}
-                <span class="fa fa-star checked "></span>
-                <span class="fa fa-star checked "></span>
-                <span class="fa fa-star checked "></span>
-                {% elif user.Ratings == '4' %}
-                <span class="fa fa-star checked "></span>
-                <span class="fa fa-star checked reset"></span>
-                <span class="fa fa-star checked reset"></span>
-                <span class="fa fa-star checked reset"></span>
-                {% else %}
-                <span class="fa fa-star checked reset" ></span>
-                <span class="fa fa-star checked reset" ></span>
-                <span class="fa fa-star checked reset"></span>
-                <span class="fa fa-star checked reset"></span>
-                <span class="fa fa-star checked reset"></span>
-                {% endif %}
-                </p>
-                <p  class="category" style="text-align: left;">Category: {{user.Review_Catgeory}}</p>
-                <p  class="Review" style="text-align: left;">Review: {{user.Reviews}}</p>
-            </div>
-        </div>
-    </section>
- 
-
-
-   <br><br><br>       
-<section class="bg-light" id="reviews">
-    <div class="owl-theme owl-carousel reviews-slider container">
+        {% endif %}
+        
+        <br><br><br>       
+        <section class="bg-light" id="reviews">
+            <div class="owl-theme owl-carousel reviews-slider container">
         <div class="review">
             <div class="person">
                 <img src="{% static 'userstatic/team_1.jpg' %}" alt="">
@@ -258,21 +277,19 @@
 <script src="{% static 'userstatic/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'userstatic/owl.carousel.min.js' %}"></script>
 <script src="{% static 'userstatic/app.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    const reviewForm = document.querySelector('form');
-const hiddenSection = document.getElementById('hiddenSection');
-
-reviewForm.addEventListener('submit', function(event) {
-  event.preventDefault(); // Prevent form submission
-
-  // Perform form submission and processing here (e.g., AJAX request)
-
-  // Show the hidden section after submission
-  hiddenSection.classList.remove('d-none');
-});
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+{% if messages %}
+  {% for message in messages %}
+  {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+  <script>swal({
+          title: "Success!",
+          text: "{{message}}",
+          icon: "success",
+          button: "OK",
+      });
+ {% endif %}
+ {% endfor %}
+{% endif %}
 </script>
 </body>
 </html>
